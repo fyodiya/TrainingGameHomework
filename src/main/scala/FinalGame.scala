@@ -39,7 +39,7 @@ package tictactoe {
 
     def gameOver = winner(playerO) || winner(playerX) || draw
 
-    def boardPrint {
+    def showBoard {
       board.grouped(3).foreach(row => println(row(0) + " - " + row(1) + " - " + row(2))) //Ilze changed the appearance of the board
     }
 
@@ -75,7 +75,7 @@ package tictactoe {
       }
 
       println
-      board.boardPrint
+      board.showBoard
 
 
       if (board.gameOver) {
