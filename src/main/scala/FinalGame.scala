@@ -1,7 +1,7 @@
 
 package object tictactoe { //GameState
-  val playerX = 'X' //human
-  val playerO = 'O' //computer
+  val playerX = 'X'
+  val playerO = 'O'
   val BaseBoard = ('1' to '9').toList
   val WinnerLines = List((0,1,2), (3,4,5), (6,7,8), (0,3,6), (1,4,7), (2,5,8), (0,4,8), (2,4,6))
   //val randomGen = new util.Random(System.currentTimeMillis) - deleted
@@ -72,12 +72,12 @@ package tictactoe {
         return
       }
 
-      if (turn == playerX) { //Human plays
-        println("PLAYER X TURN")
+      if (turn == playerX) {
+        println("** PLAYER X TURN **")
         val nextBoard = board.playerXplays(clampMove)
         play(nextBoard, playerO)
-      } else { //Computer plays
-        println("PLAYER O TURN")
+      } else {
+        println("** PLAYER O TURN **")
         val nextBoard = board.playerOplays(clampMove)
         play(nextBoard, playerX)
       }
