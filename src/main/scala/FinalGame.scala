@@ -5,7 +5,10 @@ package object tictactoe {
   val playerO = 'O'
   val playerXName = readLine(s"You will be player X. What is your name?") //Ilze added a line
   val playerOName = readLine(s"You will be player O. What is your name?") //Ilze added a line
-  val winningOptions = List((0,3,6), (1,4,7), (2,5,8), (0,1,2), (3,4,5), (6,7,8), (0,4,8), (2,4,6))
+  val winningCombo = List((0,1,2), (3,4,5), (6,7,8),
+                          (0,3,6), (1,4,7), (2,5,8),
+                          (0,4,8), (2,4,6))
+
   val boardNumbers = ('1' to '9').toList
 
   //deleted - val randomGen = new util.Random(System.currentTimeMillis)
@@ -30,7 +33,7 @@ package tictactoe {
 
 
     def winner(winner: Char) =
-      winningOptions.exists{case (i,j,k) => board(i) == winner && board(j) == winner && board(k) == winner}
+      winningCombo.exists{case (i,j,k) => board(i) == winner && board(j) == winner && board(k) == winner}
 
     def draw = board.forall(c => c == playerX || c == playerO)
 
