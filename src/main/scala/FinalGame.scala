@@ -51,7 +51,7 @@ package tictactoe {
       //deleted - else println("Something went wrong.")
     }
 
-    //FIXME
+    //FIXME not working yet
 //    def play_again(): String={
 //      println("Do you want to play again? (Y/N)?")
 //      val response = scala.io.StdIn.readLine()
