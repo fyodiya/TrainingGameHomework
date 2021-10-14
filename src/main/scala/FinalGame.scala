@@ -17,7 +17,7 @@ package object tictactoe {
 package tictactoe {
 
   import scala.io.StdIn.readChar
-  import scala.util.control.Breaks.break
+ // import scala.util.control.Breaks.break
 
   class GameBoard(board:List[Char] = boardNumbers) {
 
@@ -30,8 +30,6 @@ package tictactoe {
     def playerXplays(move: Char) = new GameBoard(board.updated(board.indexOf(move), playerX))
 
     def playerOplays(move: Char) = new GameBoard(board.updated(board.indexOf(move), playerO)) // replaced the computer move with 2nd player move
-
-
 
     def winner(winner: Char) =
       winningCombo.exists{case (i,j,k) => board(i) == winner && board(j) == winner && board(k) == winner}
