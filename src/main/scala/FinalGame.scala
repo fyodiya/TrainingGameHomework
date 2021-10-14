@@ -9,7 +9,7 @@ package object tictactoe {
                           (0,3,6), (1,4,7), (2,5,8),
                           (0,4,8), (2,4,6))
 
-  val boardNumbers = ('1' to '9').toList
+  val boardNumbers = ('1' to '9').toList //TODO jāuztaisa šis List ar citu metodi
 
   //deleted - val randomGen = new util.Random(System.currentTimeMillis)
 }
@@ -72,7 +72,7 @@ package tictactoe {
 
   }
 
-  object FinalGame extends App { //need to rename
+  object FinalGame extends App { //TODO jāuztaisa cits nosaukums
 
     println("     LET'S PLAY TIC-TAC-TOE!") //Ilze changed the println
     println
