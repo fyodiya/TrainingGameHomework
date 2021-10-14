@@ -17,6 +17,7 @@ package object tictactoe {
 package tictactoe {
 
   import scala.io.StdIn.readChar
+  import scala.util.control.Breaks.break
 
   class GameBoard(board:List[Char] = boardNumbers) {
 
@@ -35,9 +36,9 @@ package tictactoe {
     def winner(winner: Char) =
       winningCombo.exists{case (i,j,k) => board(i) == winner && board(j) == winner && board(k) == winner}
 
-    def draw = board.forall(c => c == playerX || c == playerO)
+    def noWinner = board.forall(c => c == playerX || c == playerO)
 
-    def gameOver = winner(playerO) || winner(playerX) || draw
+    def gameOver = winner(playerO) || winner(playerX) || noWinner
 
     def showBoard {
       board.grouped(3).foreach(row => println(row(0) + " - " + row(1) + " - " + row(2))) //Ilze changed the appearance of the board
@@ -46,9 +47,30 @@ package tictactoe {
     def gameOverPrint {
       if (winner(playerX)) println(s"Congrats $playerXName, you won!") //Ilze changed the println
       else if (winner(playerO)) println(s"Congrats $playerOName you won!") //Ilze changed the println
-      else if (draw) println("A draw - there is no winner.") //Ilze changed the println
+      else if (noWinner) println("A draw - there is no winner.") //Ilze changed the println
       //deleted - else println("Something went wrong.")
     }
+
+    //FIXME
+//    def play_again(): String={
+//      println("Do you want to play again? (Y/N)?")
+//      val response = scala.io.StdIn.readLine()
+//      if(response == "Y" || "y"){
+//
+//      boardNumbers = ('1' to '9').toList
+//        println("Let's start again!")
+//        showBoard
+//      }
+//      else if(response == "N" || "n"){
+//        println("Until next time!")
+//        break
+//      }
+//      else{
+//        println("Please choose between Y or N")
+//        play_again()
+//      }
+//      return response
+//    }
 
   }
 
@@ -80,6 +102,7 @@ package tictactoe {
 
       if (board.gameOver) {
         board.gameOverPrint
+        //play_again() - not working properly yet
         return
       }
 
