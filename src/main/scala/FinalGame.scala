@@ -9,8 +9,9 @@ package object tictactoe {
                           (0,3,6), (1,4,7), (2,5,8),
                           (0,4,8), (2,4,6))
 
-  val boardNumbers = ('1' to '9').toList //TODO jāuztaisa šis List ar citu metodi
-
+  //val boardNumbers = ('1' to '9').toList //Pārveidots
+  var boardNumbers = List('1', '2', '3', '4', '5', '6', '7', '8','9')
+  //var response = ""
   //deleted - val randomGen = new util.Random(System.currentTimeMillis)
 }
 
