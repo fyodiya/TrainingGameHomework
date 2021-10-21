@@ -1,8 +1,8 @@
 import scala.io.StdIn.readLine
 
 package object tictactoe {
-  val playerX = 'X'
-  val playerO = 'O'
+  val playerXsymbol = 'X'
+  val playerOsymbol = 'O'
   val playerXName = readLine(s"You will be player X. What is your name?") //Ilze added a line
   val playerOName = readLine(s"You will be player O. What is your name?") //Ilze added a line
   val winningCombo = List((0,1,2), (3,4,5), (6,7,8),
@@ -21,31 +21,60 @@ package tictactoe {
  // import scala.util.control.Breaks.break
 
   class GameBoard(board:List[Char] = boardNumbers) {
+    /**
+     *
+     * @param
+     * @return
+     */
 
-
-    def movesLeft = board.filter(n => n != playerX && n != playerO)
+    def movesLeft = board.filter(n => n != playerXsymbol && n != playerOsymbol)
 
     //deleted - def movesLeftIndex = for ((n,i) <- board.zipWithIndex if n != playerX && n != playerO) yield i
     //deleted - def computerPlays = new Board(aBoard.updated(availableMovesIdxs(randomGen.nextInt(availableMovesIdxs.length)), playerO))
-
-    def playerXplays(move: Char) = new GameBoard(board.updated(board.indexOf(move), playerX))
-
-    def playerOplays(move: Char) = new GameBoard(board.updated(board.indexOf(move), playerO)) // replaced the computer move with 2nd player move
-
+    /**
+     *
+     * updating board by marking chosen indexes with symbol X
+     */
+    def playerXplays(move: Char) = new GameBoard(board.updated(board.indexOf(move), playerXsymbol))
+    /**
+     * updating board by marking chosen indexes with symbol Y
+     */
+    def playerOplays(move: Char) = new GameBoard(board.updated(board.indexOf(move), playerOsymbol)) // replaced the computer move with 2nd player move
+    /**
+     *
+     * @param
+     * @return
+     */
     def winner(winner: Char) =
       winningCombo.exists{case (i,j,k) => board(i) == winner && board(j) == winner && board(k) == winner}
-
-    def noWinner = board.forall(c => c == playerX || c == playerO)
-
-    def gameOver = winner(playerO) || winner(playerX) || noWinner
-
+    /**
+     *
+     * @param
+     * @return
+     */
+    def noWinner = board.forall(n => n == playerXsymbol || n == playerOsymbol)
+    /**
+     *
+     * @param
+     * @return
+     */
+    def gameOver = winner(playerOsymbol) || winner(playerXsymbol) || noWinner
+    /**
+     *
+     * @param
+     * @return
+     */
     def showBoard {
       board.grouped(3).foreach(row => println(row(0) + " - " + row(1) + " - " + row(2))) //Ilze changed the appearance of the board
     }
-
+    /**
+     *
+     * @param
+     * @return
+     */
     def gameOverPrint {
-      if (winner(playerX)) println(s"Congrats $playerXName, you won!") //Ilze changed the println
-      else if (winner(playerO)) println(s"Congrats $playerOName you won!") //Ilze changed the println
+      if (winner(playerXsymbol)) println(s"Congrats $playerXName, you won!") //Ilze changed the println
+      else if (winner(playerOsymbol)) println(s"Congrats $playerOName you won!") //Ilze changed the println
       else if (noWinner) println("A draw - there is no winner.") //Ilze changed the println
       //deleted - else println("Something went wrong.")
     }
@@ -77,11 +106,20 @@ package tictactoe {
 
     println("     LET'S PLAY TIC-TAC-TOE!") //Ilze changed the println
     println
-
+    /**
+     *
+     * @param
+     * @return
+     */
     def play(board: GameBoard, turn: Char) {
 
       //Reads a char from input until it is one of
       //the available moves in the current board
+      /**
+       *
+       * @param
+       * @return
+       */
       def clampMove(): Char = {
 
         print("Choose a number from the board above -> ") ////Ilze changed the println
@@ -105,18 +143,18 @@ package tictactoe {
         return
       }
 
-      if (turn == playerX) {
+      if (turn == playerXsymbol) {
         println("   ***  PLAYER X TURN  ***   ") //Ilze changed the println
         val nextBoard = board.playerXplays(clampMove)
-        play(nextBoard, playerO)
+        play(nextBoard, playerOsymbol)
       } else {
         println("   ***  PLAYER O TURN  ***   ") //Ilze changed the println
         val nextBoard = board.playerOplays(clampMove)
-        play(nextBoard, playerX)
+        play(nextBoard, playerXsymbol)
       }
     }
 
-    play(new GameBoard(),playerX)
+    play(new GameBoard(),playerXsymbol)
 
   }
 
