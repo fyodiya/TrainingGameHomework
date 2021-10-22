@@ -22,28 +22,25 @@ package tictactoe {
 
   class GameBoard(board:List[Char] = boardNumbers) {
     /**
+     * Dividing list of characters into 3 iterable collections and printing them in 3 rows
      *
-     * @param
-     * @return
      */
+    def showBoard {
+      board.grouped(3).foreach(row => println(row(0) + " - " + row(1) + " - " + row(2))) //Ilze changed the appearance of the board
+    }
 
-    def movesLeft = board.filter(n => n != playerXsymbol && n != playerOsymbol)
-
-    //deleted - def movesLeftIndex = for ((n,i) <- board.zipWithIndex if n != playerX && n != playerO) yield i
-    //deleted - def computerPlays = new Board(aBoard.updated(availableMovesIdxs(randomGen.nextInt(availableMovesIdxs.length)), playerO))
     /**
      *
-     * updating board by marking player X chosen numbers with symbol X
+     * updating board by replacing player X chosen number index with symbol X
      */
     def playerXplays(move: Char) = new GameBoard(board.updated(board.indexOf(move), playerXsymbol))
     /**
-     * updating board by marking player Y chosen indexes with symbol Y
+     * updating board by replacing player Y chosen number index with symbol X
      */
     def playerOplays(move: Char) = new GameBoard(board.updated(board.indexOf(move), playerOsymbol)) // replaced the computer move with 2nd player move
     /**
      *
-     * @param
-     * @return
+     * Checking if any of the winning combo
      */
     def winner(winner: Char) =
       winningCombo.exists{case (i,j,k) => board(i) == winner && board(j) == winner && board(k) == winner}
@@ -53,20 +50,18 @@ package tictactoe {
      * @return
      */
     def noWinner = board.forall(n => n == playerXsymbol || n == playerOsymbol)
+
+    def movesLeft = board.filter(n => n != playerXsymbol && n != playerOsymbol)
+
+    //deleted - def movesLeftIndex = for ((n,i) <- board.zipWithIndex if n != playerX && n != playerO) yield i
+    //deleted - def computerPlays = new Board(aBoard.updated(availableMovesIdxs(randomGen.nextInt(availableMovesIdxs.length)), playerO))
     /**
      *
      * @param
      * @return
      */
     def gameOver = winner(playerOsymbol) || winner(playerXsymbol) || noWinner
-    /**
-     *
-     * @param
-     * @return
-     */
-    def showBoard {
-      board.grouped(3).foreach(row => println(row(0) + " - " + row(1) + " - " + row(2))) //Ilze changed the appearance of the board
-    }
+
     /**
      *
      * @param
