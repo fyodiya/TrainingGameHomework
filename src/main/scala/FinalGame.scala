@@ -33,11 +33,11 @@ package tictactoe {
     //deleted - def computerPlays = new Board(aBoard.updated(availableMovesIdxs(randomGen.nextInt(availableMovesIdxs.length)), playerO))
     /**
      *
-     * updating board by marking chosen indexes with symbol X
+     * updating board by marking player X chosen numbers with symbol X
      */
     def playerXplays(move: Char) = new GameBoard(board.updated(board.indexOf(move), playerXsymbol))
     /**
-     * updating board by marking chosen indexes with symbol Y
+     * updating board by marking player Y chosen indexes with symbol Y
      */
     def playerOplays(move: Char) = new GameBoard(board.updated(board.indexOf(move), playerOsymbol)) // replaced the computer move with 2nd player move
     /**
@@ -128,7 +128,7 @@ package tictactoe {
         if (validNumbers.contains(move)) {
           move
         } else {
-          println("Wrong number! Choose another one from this" + validNumbers)
+          println(s"Wrong number! Choose another one from this $validNumbers")
           clampMove()
         }
       }
