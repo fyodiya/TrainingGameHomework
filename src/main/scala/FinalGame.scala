@@ -20,38 +20,41 @@ package tictactoe {
   import scala.io.StdIn.readChar
  // import scala.util.control.Breaks.break
 
-  class GameBoard(board:List[Char] = boardNumbers) {
+  class GameBoard(classBoard:List[Char] = boardNumbers) {
     /**
-     * Dividing list of characters into 3 iterable collections and printing them in 3 rows
+     *
+     * Printing list in a form of game board
      *
      */
     def showBoard {
-      board.grouped(3).foreach(row => println(row(0) + " - " + row(1) + " - " + row(2))) //Ilze changed the appearance of the board
+      println(classBoard(0) + " | " + classBoard(1) + " | " + classBoard(2))
+      println(classBoard(3) + " | " + classBoard(4) + " | " + classBoard(5))
+      println(classBoard(6) + " | " + classBoard(7) + " | " + classBoard(8))
     }
 
     /**
      *
      * updating board by replacing player X chosen number index with symbol X
      */
-    def playerXplays(move: Char) = new GameBoard(board.updated(board.indexOf(move), playerXsymbol))
+    def playerXplays(move: Char) = new GameBoard(classBoard.updated(classBoard.indexOf(move), playerXsymbol))
     /**
      * updating board by replacing player Y chosen number index with symbol X
      */
-    def playerOplays(move: Char) = new GameBoard(board.updated(board.indexOf(move), playerOsymbol)) // replaced the computer move with 2nd player move
+    def playerOplays(move: Char) = new GameBoard(classBoard.updated(classBoard.indexOf(move), playerOsymbol)) // replaced the computer move with 2nd player move
     /**
      *
      * Checking if any of the winning combo
      */
     def winner(winner: Char) =
-      winningCombo.exists{case (i,j,k) => board(i) == winner && board(j) == winner && board(k) == winner}
+      winningCombo.exists{case (i,j,k) => classBoard(i) == winner && classBoard(j) == winner && classBoard(k) == winner}
     /**
      *
      * @param
      * @return
      */
-    def noWinner = board.forall(n => n == playerXsymbol || n == playerOsymbol)
+    def noWinner = classBoard.forall(n => n == playerXsymbol || n == playerOsymbol)
 
-    def movesLeft = board.filter(n => n != playerXsymbol && n != playerOsymbol)
+    def movesLeft = classBoard.filter(n => n != playerXsymbol && n != playerOsymbol)
 
     //deleted - def movesLeftIndex = for ((n,i) <- board.zipWithIndex if n != playerX && n != playerO) yield i
     //deleted - def computerPlays = new Board(aBoard.updated(availableMovesIdxs(randomGen.nextInt(availableMovesIdxs.length)), playerO))
