@@ -12,7 +12,6 @@ package object tictactoe {
   var boardNumbers = List('1', '2', '3', '4', '5', '6', '7', '8','9')
  // var list_check: List[Char]= List()
   var response = "yes"
-  //deleted - val randomGen = new util.Random(System.currentTimeMillis)
 }
 
 package tictactoe {
@@ -126,7 +125,7 @@ package tictactoe {
        */
       def clampMove(): Char = {
 
-        print("Choose a number from the board above -> ") ////Ilze changed the println
+        print("Choose a number from the board above -> ")
         val validNumbers = board.movesLeft
         val move = readChar
         if (validNumbers.contains(move)) {
@@ -150,11 +149,11 @@ package tictactoe {
       }
 
       if (turn == playerXsymbol) {
-        println("   ***  PLAYER X TURN  ***   ") //Ilze changed the println
+        println("   ***  PLAYER X TURN  ***   ")
         val nextBoard = board.playerXplays(clampMove)
         play(nextBoard, playerOsymbol)
       } else {
-        println("   ***  PLAYER O TURN  ***   ") //Ilze changed the println
+        println("   ***  PLAYER O TURN  ***   ")
         val nextBoard = board.playerOplays(clampMove)
         play(nextBoard, playerXsymbol)
       }
