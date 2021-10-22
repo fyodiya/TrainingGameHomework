@@ -3,21 +3,22 @@ import scala.io.StdIn.readLine
 package object tictactoe {
   val playerXsymbol = 'X'
   val playerOsymbol = 'O'
-  val playerXName = readLine(s"You will be player X. What is your name?") //Ilze added a line
-  val playerOName = readLine(s"You will be player O. What is your name?") //Ilze added a line
+  val playerXName = readLine(s"You will be player X. What is your name?")
+  val playerOName = readLine(s"You will be player O. What is your name?")
   val winningCombo = List((0,1,2), (3,4,5), (6,7,8),
                           (0,3,6), (1,4,7), (2,5,8),
                           (0,4,8), (2,4,6))
 
-  //val boardNumbers = ('1' to '9').toList //Pārveidots
   var boardNumbers = List('1', '2', '3', '4', '5', '6', '7', '8','9')
-  //var response = ""
+ // var list_check: List[Char]= List()
+  var response = "yes"
   //deleted - val randomGen = new util.Random(System.currentTimeMillis)
 }
 
 package tictactoe {
 
   import scala.io.StdIn.readChar
+  import scala.util.control.Breaks.break
  // import scala.util.control.Breaks.break
 
   class GameBoard(classBoard:List[Char] = boardNumbers) {
@@ -77,22 +78,25 @@ package tictactoe {
       //deleted - else println("Something went wrong.")
     }
 
+    def resetBoard={
+      boardNumbers = List()
+      boardNumbers = List('1', '2', '3', '4', '5', '6', '7', '8','9')
+    }
+
     //FIXME not working yet
-//    def play_again(): String={
-//      println("Do you want to play again? (Y/N)?")
-//      val response = scala.io.StdIn.readLine()
-//      if(response == "Y" || "y"){
-//
-//      boardNumbers = ('1' to '9').toList
+//    def play_again(): Unit={
+//      response = readLine("Do you want to play again? (yes or no)?")
+//      if(response == "yes"){
+//        resetBoard
 //        println("Let's start again!")
 //        showBoard
 //      }
-//      else if(response == "N" || "n"){
-//        println("Until next time!")
+//      else if(response == "no"){
+//        println("Have a nice day!")
 //        break
 //      }
 //      else{
-//        println("Please choose between Y or N")
+//        println("Please choose between yes or no")
 //        play_again()
 //      }
 //      return response
@@ -102,13 +106,15 @@ package tictactoe {
 
   object FinalGame extends App { //TODO jāuztaisa cits nosaukums
 
-    println("     LET'S PLAY TIC-TAC-TOE!") //Ilze changed the println
+    println("     LET'S PLAY TIC-TAC-TOE!")
     println
     /**
      *
      * @param
      * @return
      */
+
+
     def play(board: GameBoard, turn: Char) {
 
       //Reads a char from input until it is one of
@@ -137,7 +143,9 @@ package tictactoe {
 
       if (board.gameOver) {
         board.gameOverPrint
-        //play_again() - not working properly yet
+//        board.resetBoard
+//        board.play_again()
+
         return
       }
 
@@ -150,9 +158,34 @@ package tictactoe {
         val nextBoard = board.playerOplays(clampMove)
         play(nextBoard, playerXsymbol)
       }
+      //response = readLine("Do you want to play again? (Y/N)?")
     }
 
+
+
+
+//    def mainGameLoop(): Unit = {
+//      var is_game_needed = true
+//      while (is_game_needed) {
+//        play(new GameBoard(),playerXsymbol)
+//        //afterGame()
+//        val response = readLine("New game Y/N ?")
+//        if (response.toLowerCase.startsWith("y")) {
+////          val newPlayerResponse = readLine("New Players ? Y/N")
+////          if (newPlayerResponse.toLowerCase.startsWith("y")) {
+////            initPlayerSettings()
+//       //   }
+//          play(new GameBoard(),playerXsymbol) }//we need to reset game state no matter if we have new players
+//   //       displayGameStats()
+//    //    }
+//        else is_game_needed = false  //in this case we end the game on anything other text starting with y or Y
+//      }
+//
+//    }
+
     play(new GameBoard(),playerXsymbol)
+
+
 
   }
 
