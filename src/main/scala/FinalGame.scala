@@ -18,7 +18,7 @@ package tictactoe {
   class GameBoard(classBoard:Array[Char] = boardNumbers) {
     /**
      *
-     * Printing array in a form of game board
+     * Printing array in a form of 3x3 game board
      *
      */
     def showBoard {
@@ -40,14 +40,24 @@ package tictactoe {
      *
      * Checking if any of the winning combo is filled
      */
-    def winner(winner: Char) =
+    def winner(winner: Char):Boolean =
       winningCombo.exists{case (i,j,k) => classBoard(i) == winner && classBoard(j) == winner && classBoard(k) == winner}
     /**
      *
      * @param
      * @return
      */
-    def tie = classBoard.forall(n => n == playerXsymbol || n == playerOsymbol)
+   // def tie = classBoard.forall(n => n == playerXsymbol || n == playerOsymbol)
+    def tie:Boolean = {
+        classBoard(0) !='1' &&
+        classBoard(1) !='2' &&
+        classBoard(2) !='3' &&
+        classBoard(3) !='4' &&
+        classBoard(4) !='5' &&
+        classBoard(5) !='6' &&
+        classBoard(6) !='7' &&
+        classBoard(7) !='8' &&
+        classBoard(8) !='9'}
 
     def movesLeft = classBoard.filter(n => n != playerXsymbol && n != playerOsymbol)
 
@@ -92,7 +102,6 @@ package tictactoe {
     def mainPlay(board: GameBoard, turn: Char) {
 
       /**
-       *
        * Reads an input and allows to move forward when it matches any of the available characters
        */
       def clampMove(): Char = {
@@ -108,7 +117,6 @@ package tictactoe {
         }
       }
       /**
-       *
        * Play again loop starts here
        */
       while (is_game_needed) { //PLAY AGAIN LOOP
@@ -167,7 +175,9 @@ package tictactoe {
 //      }
 //
 //    }
-
+    /**
+     * Calling the function, player X having the first turn
+     */
     mainPlay(new GameBoard(),playerXsymbol)
 
 
