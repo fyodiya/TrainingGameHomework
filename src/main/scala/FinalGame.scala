@@ -1,6 +1,5 @@
 import scala.io.StdIn.readLine
 
-
 package object tictactoe {
   val playerXsymbol = 'X'
   val playerOsymbol = 'O'
@@ -15,9 +14,6 @@ package object tictactoe {
 }
 
 package tictactoe {
-
-  import scala.io.StdIn.readChar
-
 
   class GameBoard(classBoard:Array[Char] = boardNumbers) {
     /**
@@ -51,7 +47,7 @@ package tictactoe {
      * @param
      * @return
      */
-    def noWinner = classBoard.forall(n => n == playerXsymbol || n == playerOsymbol)
+    def tie = classBoard.forall(n => n == playerXsymbol || n == playerOsymbol)
 
     def movesLeft = classBoard.filter(n => n != playerXsymbol && n != playerOsymbol)
 
@@ -61,7 +57,7 @@ package tictactoe {
      * @param
      * @return
      */
-    def gameOver = winner(playerOsymbol) || winner(playerXsymbol) || noWinner
+    def gameOver = winner(playerOsymbol) || winner(playerXsymbol) || tie
 
     /**
      *
@@ -71,31 +67,13 @@ package tictactoe {
     def gameOverPrint {
       if (winner(playerXsymbol)) println(s"Congrats $playerXName, you won!")
       else if (winner(playerOsymbol)) println(s"Congrats $playerOName you won!")
-      else if (noWinner) println("A draw - there is no winner.")
+      else if (tie) println("Tie - there is no winner.")
     }
 
 
 
-    //
-//    def play_again(): Unit={
-//      response = readLine("Do you want to play again? (yes or no)?")
-//      if(response == "yes"){
-//        resetBoard
-//        println("Let's start again!")
-//        showBoard
-//      }
-//      else if(response == "no"){
-//        println("Have a nice day!")
-//        break
-//      }
-//      else{
-//        println("Please choose between yes or no")
-//        play_again()
-//      }
-//      return response
-//    }
-
   }
+  import scala.io.StdIn.readChar
   import scala.util.control.Breaks.break
   object FinalGame extends App { //TODO jāuztaisa cits nosaukums
     println("     LET'S PLAY TIC-TAC-TOE!")
@@ -111,13 +89,11 @@ package tictactoe {
       boardNumbers = Array('1', '2', '3', '4', '5', '6', '7', '8','9')
     }
     var is_game_needed = true
-    def play(board: GameBoard, turn: Char) {
-      //Reads a char from input until it is one of
-      //the available moves in the current board
+    def mainPlay(board: GameBoard, turn: Char) {
+
       /**
        *
-       * @param
-       * @return
+       * Reads an input and allows to move forward when it matches any of the available characters
        */
       def clampMove(): Char = {
 
@@ -131,6 +107,10 @@ package tictactoe {
           clampMove()
         }
       }
+      /**
+       *
+       * Play again loop starts here
+       */
       while (is_game_needed) { //PLAY AGAIN LOOP
         println
         board.showBoard
@@ -141,8 +121,12 @@ package tictactoe {
            if (response.startsWith("y") || response.startsWith("Y")) {
               println
               println("Great! Let's start again!")
+             val newPlayerResponse = readLine("New Players ? Y/N")
+                       if (newPlayerResponse.startsWith("y") || response.startsWith("Y")) {
+                         println("TEST TEST TEST")
+                       }
               resetBoard(new GameBoard())
-              play(new GameBoard(),playerXsymbol)
+              mainPlay(new GameBoard(),playerXsymbol)
            }
            else
              println
@@ -153,11 +137,11 @@ package tictactoe {
         if (turn == playerXsymbol) {
           println("   ***  PLAYER X TURN  ***   ")
           val nextBoard = board.playerXplays(clampMove)
-          play(nextBoard, playerOsymbol)
+          mainPlay(nextBoard, playerOsymbol)
         } else {
           println("   ***  PLAYER O TURN  ***   ")
           val nextBoard = board.playerOplays(clampMove)
-          play(nextBoard, playerXsymbol)
+          mainPlay(nextBoard, playerXsymbol)
         }
       }
     }
@@ -184,7 +168,7 @@ package tictactoe {
 //
 //    }
 
-    play(new GameBoard(),playerXsymbol)
+    mainPlay(new GameBoard(),playerXsymbol)
 
 
 
